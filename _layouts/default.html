@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ page.title }}</title>
+        <!-- link to main stylesheet -->
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <!--<li><a href="/cv">CV</a></li>-->
+            </ul>
+        </nav>
+        <div class="container">
+        {{ content }}
+        </div>
+        <footer>
+            <ul>
+                <li><a href="/impressum">Impressum</a></li>
+                <li><a href="mailto:wiedehoeft.christian@gmail.com">email</a></li>
+                <li><a href="https://github.com/wiedehoeft">github.com/wiedehoeft</a></li>
+            </ul>
+        </footer>
+    </body>
+</html>
