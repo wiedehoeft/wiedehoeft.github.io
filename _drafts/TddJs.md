@@ -22,15 +22,15 @@ An other way is to use Intellij with some plugins, to implement our business log
 * Execute tests again (green)
 * Refactor our code, or write the next red testcase
 
-First, [Intellij](https://www.jetbrains.com/idea/download/#section=linux) and also an Intellj license are needed. After extracting Intellij, create a new empty project at your disk, named "Katas". Katas are short programming exercises, which can be used well to evaluate new features from IDE to new programming library. Switch in the project folder and init project with 
+First, [Intellij](https://www.jetbrains.com/idea/download/#section=linux) and also an Intellj license are needed. After extracting Intellij, create a new empty project at your disk, named "Katas". Katas are short programming exercises, which can be used well to evaluate new features from an IDE or a new programming library. Switch in the project folder and init project with 
 
 `npm init`. 
 
-The default values are enough for our showcase. We also create a folder `src` and in this folder a file `FizzBuzzTest.js`. After the inital setup the project has following structure:
+The default values are sufficient for our showcase. Also create a folder `src` and in this folder a file `FizzBuzzTest.js`. After the inital setup the project has following structure:
 
 ![Intellij project structure](/assets/img/TddJs_InitialFolderStructure.png "InitialFolderStructure")
 
-Now we need some extra [Intellij Setup](https://www.jetbrains.com/help/idea/testing-javascript-with-mocha.html).
+Now some extra [Intellij Setup](https://www.jetbrains.com/help/idea/testing-javascript-with-mocha.html) is required.
 Install Mocha as local dependency 
 
 `npm install --save-dev mocha` 
