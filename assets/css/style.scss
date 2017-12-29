@@ -8,3 +8,12 @@
 }
 
 #read-blogs span { background: transparent url(../images/octocat-icon.png) 12px 50% no-repeat; }
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    font-size: large;
+    font-weight: bold;
+}
