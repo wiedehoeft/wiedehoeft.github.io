@@ -7,6 +7,7 @@ comments: true
 ---
 
 This article will give a brief introduction in common Javascript module systems. 
+
 For longer descriptions see [this great article](https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc).
 
 ### Term definitions
