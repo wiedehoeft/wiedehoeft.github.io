@@ -3,6 +3,7 @@ author: Christian Wiedehöft
 title: Creating acceptance tests with Gradle and Fit
 date: 2018-02-12
 layout: default
+comments: true
 ---
 
 In the next two blog articles is described how to setup gradle to run acceptance tests in a specific gradle task. 
