@@ -1,14 +1,13 @@
 ---
 author: Christian Wiedehöft
-title: Creating acceptance tests with Gradle, Cucumber and Fit
+title: Creating acceptance tests with Gradle and Fit
 date: 2018-02-12
 layout: default
 ---
 
-In this post we will setup gradle to run acceptance tests
-in a specific gradle tasks. We will have a brief look at Fit
-and Cucumber and will write and run our first test with
-both frameworks.
+In the next two blog articles is described how to setup gradle to run acceptance tests in a specific gradle task. 
+Two different frameworks will be used writing these tests.
+The first article describes the setup wit Gradle and Fit. The second article describes how the setup and write them with Cucumber.
 
 ### Expected knowledge base
 * Gradle and Gradle project structure
@@ -16,12 +15,12 @@ both frameworks.
 * Java, JUnit, Mockito
 
 ### Basic setup
-At first we need a new empty gradle project.
-After the setup the structure should look like this
+At first a new empty Gradle project is needed.
+After the setup the structure should look like this:
 
-![Intellij project structure](/assets/img/AcceptanceTests_InitialFolderStructure.png "InitialFolderStructure")
+![](/assets/img/AcceptanceTests_InitialFolderStructure.png "InitialFolderStructure")
 
-I like to start with a build.gradle like this:
+It is recommended to start with a `build.gradle` like this:
 ```
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -48,16 +47,14 @@ dependencies {
 ```
 
 It is possible to import this project in eclipse after `./gradlew eclipse` and to Intellij, which should auto-build the Gradle project.
-We also have a minimal dependency set for creating Unit-Tests. But Unit-Tests won't be in scope for this article.
-Instead I will describe in the next to sections how to setup the project for creating Acceptance-Tests. First with Fit and after that
-with Cucumber.
+Also a minimal dependency set for creating Unit-Tests is still described although they won't be in scope for this article.
+Instead the next sections will cover how to setup the project for creating Acceptance-Tests. 
 
 ### Setup for Fit
 At first I will answer a question some readers might have: why Fit, or what is Fit?
 [Fit] is an extreme simple and lightweight Acceptance-Testing-"Framework" by [Ward Cunningham] and the ancestor of [FitNesse], a very popular testing framework today.
-I will start with Fit because in my opinion it shows best how simple it can be to start writing Acceptance-Tests. There is no need of much infrastructure
-or complex test specification, instead we just need a Jar, some HTML files and glue code to manage our application.
-
+The blog series starts with Fit because it shows best how simple it is to start writing Acceptance-Tests. There is no need for much infrastructure
+or complex test specification. Instead just a Jar, some HTML files and some glue code to link the test specification with the application is needed.
 
 
 [Fit]: http://fit.c2.com/
@@ -65,10 +62,8 @@ or complex test specification, instead we just need a Jar, some HTML files and g
 [Ward Cunningham]: http://fit.c2.com/wiki.cgi?WardCunningham
 
 
-
-
-At first we need to add the jar to the application. Currently it is only hosted at Maven-Central, so we need to edit the repository
-specification, too:
+The first step is to add the jar to the application. Currently it is only hosted at Maven-Central, so it has to be added to the repository
+specification:
 ```
 repositories {
     jcenter()
@@ -83,14 +78,13 @@ dependencies {
 }
 ```
 
-Because acceptance tests might me even slower than unit-tests we will create a separate gradle build-step for them and don't run the tests, while
-default gradle build.
+Because Acceptance-tests might be even slower than Unit-Tests a separate gradle build-step for them is created so the tests  don't run while
+default `gradle build`:
 
-For these, we need the following changes in our project:
-At first create a new folder under `test/` named `fit`. Here we will place our test specification and fixture code later.
-Because this differs from default gradle project structure, we need to change the build.gradle-file.
+Add a new folder under `test/`-dir named `fit`. Here the test specification and fixture code is added later.
+Because this differs from default gradle project structure, some changes to the build.gradle-file are made.
 
-First, we declare a new source folder:
+Declare a new source folder, so gradle compiles the classes placed under `src/test/fit`, too:
 
 ```
 sourceSets {
@@ -102,7 +96,7 @@ sourceSets {
 }
 ```
 
-Because in real life applications we want to have access to the application under test, we need to extend the classpath for the new source set:
+Because in productive applications access to the application under test is needed, the new source set is extended by default test classpath:
 ```
 configurations {
     integrationTestCompile.extendsFrom testCompile
@@ -110,7 +104,7 @@ configurations {
 }
 ```
 
-Now we are ready to write our first tests, but before we will create a separate gradle build step to launch them:
+Now the project is ready to include the new gradle build step to launch the Acceptance-Tests:
 ```
 task fit(type: JavaExec) {
     classpath = sourceSets.integrationTest.runtimeClasspath
@@ -121,11 +115,11 @@ task fit(type: JavaExec) {
 }
 ```
 
-Because Fit has no gradle runner plugin we create a separate gradle step which executes the Fit-FileRunner class from the Fit-Jar.
-Before we start the gradle build step place the specified files `alltests.html` and `alltests-result.html` in the fit test folder we created before.
+Because Fit has no gradle runner plugin it is a separate gradle step which executes the `fit.FileRunner`-class from the Fit-Jar.
+Before launching the gradle build step the specified files `alltests.html` and `alltests-result.html` are added in the fit test folder created before.
 
-After that we are ready to execute the gradle step the first time: type `./gradlew fit` to launch tests.
-This should give following error:
+After that the gradle step is launched the first time with `./gradlew fit`.
+This should lead to following error:
 ```
 FAILURE: Build failed with an exception.
    ./gradlew fit
@@ -139,11 +133,11 @@ FAILURE: Build failed with an exception.
    FAILURE: Build failed with an exception.
 ```
 
-Open the `alltests-result.html` in Browser and you will see that we correctly launched the Fit FileRunner, but it was unable to parse our HTML-file:
+Opening the `alltests-result.html` in Browser will show that the `fit.FileRunner` correctly launched , but it was unable to parse the HTML file:
 ![](/assets/img/Fit_Test_Error_No_TestTable.png "FitTestError")
 
 ### Implement first Fit Acceptance-Test
-Copy the following content to `alltests.html`:
+Copying the following content to `alltests.html`:
 ```
 <html>
 <head>
@@ -168,26 +162,26 @@ Copy the following content to `alltests.html`:
 </html>
 ```
 
-The great thing with acceptance test is that it does not need further explanation. The test describes what the task is, just open our
-description in Browser.
+gives the following result, opened in Browser:
 ![](/assets/img/Fit_Testcase.png "Fit Test-Case Description")
 
+The great thing with acceptance test is that it does not need further explanation. The test describes what the task is, every developer should be ready
+to go after reading the test specification.
+A DVD Store is created, where a User should be able to add new Movies to the inventory.
 
-We create a DVD Store, where we want to be able to add new Movies to the inventory.
 I will not go deep to Fit specific things like the `fit.ActionFixture`, this would be an other complete blog article and Frank Westphal 
-still wrote a great description (see linked PDF below). In short it is
-a class from Fit which parses every table row and executes the specified command. The commands in row one are defined by Fit and needs to
-be overwritten from us to specify the scenario specific behaviour.
+still wrote a great description (see linked PDF below). In short it is a class from Fit which parses every table row and executes 
+the specified command from column one. These commands are defined by Fit during the commands in column two are defined by the developer.
 
-It's time to create our Fixture class where we place our test code. You can name it e.g. 'MovieAdministration.java'. I always prefer class names
-specific to the problem domain, because every developer who needs to work with our code is able to find the needed classes when she/he needs
-to add new behaviour to our code.
+It's time to create the Fixture class where test code is placed. It has to be named 'MovieAdministration.java', look row and column two. 
+I always prefer class names specific to the problem domain, because every developer who needs to work with the code is able 
+to find the needed classes when she/he needs to add new behaviour to the code.
 
 After creating the empty Java class execute the tests again.
-Still an exception, but we move forward; refresh the `alltests-result.html` page in Browser. It should look like this
+Still an exception, but one step further; refresh the `alltests-result.html` page in Browser. It should look like this
 ![](/assets/img/Fit_Test_Error_CantCastToFixture.png "FitTestError_CantCastToFixture")
 
-The new test class has to extend the Fit-Fixture class:
+The new test class has to extend the `fit.Fixture` class:
 ```
 import fit.Fixture;
 
@@ -195,9 +189,7 @@ public class MovieAdministration extends Fixture {
 [...]
 ```
 
-We also have many NPE, because Fit expects a method for our test description in column 2. Fit delivers the code like `press` and `enter`, but we have
-to deliver the code, how Fit has to behave in this scenario.
-Add following to the class:
+There are also many NPE, because the specified methods from column two are still not implemented. Add following to the class:
 ```
 private int movieNumber;
   private String movieTitle;
@@ -220,11 +212,11 @@ private int movieNumber;
   }
 ```
 
-Now run tests again. They should succeed now, because the enter rows don't really test something.
-The only test we currently have is the `check` row. It checks if movie has No. 1. The value is currently returned hard coded. 
+Now run tests again. They should succeed now, because the `enter rows` don't really test something.
+The only test currently existing is the `check` row. It checks if movie has No. 1. The value is currently returned hard coded. 
 ![](/assets/img/Fit_Test_Success.png "FitTestError_CantCastToFixture")
 
-When changing it the test will fail.
+When changing it the test will fail:
 ![](/assets/img/Fit_Test_Failure.png "FitTestError_CantCastToFixture")
 
 From this point you are ready to write Acceptance-Tests with Fit and launch them in your build pipeline with Gradle. For a 
@@ -232,6 +224,7 @@ deeper look to Fit I recommend the [Free PDF from Frank Westphal]. It gives a gr
 
 [Free PDF from Frank Westphal]: http://www.frankwestphal.de/ftp/Westphal_Testgetriebene_Entwicklung.pdf
 
+Please feel free to leave comments. In the next article the setup with Cucumber will be described. Stay tuned!
 
 
 {% if page.comments %} 
