@@ -223,9 +223,13 @@ When changing it the test will fail:
 From this point you are ready to write Acceptance-Tests with Fit and launch them in your build pipeline with Gradle. For a 
 deeper look to Fit I recommend the [Free PDF from Frank Westphal]. It gives a great introduction in Testing Java applications.
 
-[Free PDF from Frank Westphal]: http://www.frankwestphal.de/ftp/Westphal_Testgetriebene_Entwicklung.pdf
+For a complete example see [github-project].
 
 Please feel free to leave comments. In the next article the setup with Cucumber will be described. Stay tuned!
+
+
+[Free PDF from Frank Westphal]: http://www.frankwestphal.de/ftp/Westphal_Testgetriebene_Entwicklung.pdf
+[github-project]: https://github.com/wiedehoeft/TemplatesSnipptesAndExperiments/tree/setupAcceptanceTestWithFit
 
 
 {% if page.comments %} 
