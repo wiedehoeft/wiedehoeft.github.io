@@ -8,7 +8,7 @@ comments: true
 
 # Setting up (Context) Dependency Injection with Weld, Guice and/or HK2
 
-Last week I tried to setup Depndency Injection in one of our Dropwizard services. Because it was not as trivial as expected,
+Last week I tried to setup Dependency Injection in one of our Dropwizard services. Because it was not as trivial as expected,
 I created a separate project for this task and tried different frameworks.
 
 Starting point was a default gradle project with some classes. The class where bootstrapping should start is `Person.java`:
@@ -16,6 +16,8 @@ Starting point was a default gradle project with some classes. The class where b
 public class Person {
 
   private Adress adress;
+  
+  @Inject
   private IPrinter printer;
 
   public Person(IPrinter printer) {
@@ -34,7 +36,7 @@ public class Person {
 ```
 
 It has an interface which should be injected with an implementation at runtime and an adress which should be printed by injected class.
-For testing purpose the class will be used in Main-method and a JUnit test, which is executed by gradle.build (stay tuned, these differences will matter!).
+For testing purpose the class will be used in Main-method and a JUnit test, which is executed by gradle-build (stay tuned, these differences will matter!).
 
 `PersonTest.java`
 ```
@@ -119,7 +121,7 @@ public class PersonModule extends AbstractModule {
 }
 ```
 
-That's it. Guice will now bootstrap all binded classes and try to inject constructors and fields with new objects when possible.
+That's it. Guice will now bootstrap all binded classes and try to inject constructors and/or fields with new objects when possible.
 
 **Advantages**
 * Easy and straightforward to use
