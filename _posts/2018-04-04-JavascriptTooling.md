@@ -60,6 +60,7 @@ This post gives a brief overview of Javascript Tools.
 |                       | Chai                                 | Assertion library
 |                       | Sinon.JS                             | Mocking, Stubbing and Spying
 |                       | Blanket.JS                           | Test Coverage
+|                       | Jest                                 | React first approach
 | Building              | Grunt                                |
 |                       | Gulp JS                              |
 |                       | Webpack                              |
@@ -81,7 +82,8 @@ This post gives a brief overview of Javascript Tools.
 |                       | Ember.js                             |
 |                       | Polymer                              |      
 | Backend               | Node                                 |
-|                       | Express                              |    
+|                       | Express                              |
+| UI                    | Storybook                            | available for Angular, Vue and React 
 
 *You have more tools or new categories and tools? Then leave a comment.*
 
