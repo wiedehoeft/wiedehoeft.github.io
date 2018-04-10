@@ -5,6 +5,16 @@ date: 2018-01-22
 layout: default
 ---
 
+### 10.04.2018
+* Use CommonJS library in browser which was bundled with Webpack
+  * Entry-Point has to reference Module which exports functions
+  * Set library name for accessing functions 
+  * [Github-Project](https://github.com/wiedehoeft/Katas/tree/questionnaireKata)
+* Tested some frameworks for e2e-tests
+  * CasperJS => needs global phantomJS-installation
+  * PhantomJS => no npm package for testing/ci?
+  * Karma + Jasmine => no framework or library for DOM-Tests out-of-the-box
+
 ### 16.03.2018
 **Most important topics since last entry**
 * Finished TestDrivenDevelopment with JUnit & Fit
